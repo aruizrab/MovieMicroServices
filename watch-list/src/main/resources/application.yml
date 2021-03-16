@@ -1,0 +1,8 @@
+spring:
+  application:
+    name: watch-list
+  jpa:
+    database: h2
+
+server:
+  port: 7003
