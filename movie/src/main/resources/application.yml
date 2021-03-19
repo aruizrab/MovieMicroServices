@@ -1,8 +1,37 @@
+server:
+  port: 7001
+
 spring:
   application:
-    name: movie
+    name: movie-service
   jpa:
     database: h2
 
+---
+spring:
+  config:
+    activate:
+      on-profile: docker
+  jpa:
+    database: mysql
+    generate-ddl: true
+    show-sql: true
+    hibernate:
+      ddl-auto: create
+    properties:
+      hibernate:
+        hbm2ddl:
+          import_files: data.sql
+  datasource:
+    url: jdbc:mysql://db:3306/moviedb
+    username: user
+    password: pass
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
 server:
-  port: 7001
+  port: 8080
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://discovery-service:8761/eureka

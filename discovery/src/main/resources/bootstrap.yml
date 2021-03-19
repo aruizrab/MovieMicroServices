@@ -1,0 +1,26 @@
+app:
+  config-server:
+    host: localhost
+    user: user
+    password: pass
+
+spring:
+  application:
+    name: discovery-service
+  cloud:
+    config:
+      fail-fast: true
+      uri: http://${app.config-server.user}:${app.config-server.password}@${app.config-server.host}:8888
+
+---
+app:
+  config-server:
+    host: configuration-service
+
+spring:
+  config:
+    activate:
+      on-profile: docker
+  cloud:
+    config:
+      uri: http://${CONFIG_SERVER_USER}:${CONFIG_SERVER_PASSWORD}@${app.config-server.host}:8080

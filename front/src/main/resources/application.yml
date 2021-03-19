@@ -1,0 +1,40 @@
+server:
+  port: 7000
+
+spring:
+  application:
+    name: front
+  cloud:
+    stream:
+      bindings:
+        senderUserChannel:
+          destination: userChannel
+        senderWatchlistChannel:
+          destination: watchlistChannel
+
+app:
+  movie-service:
+    host: movie-service
+    url: http://${app.movie-service.host}
+  user-service:
+    host: user-service
+    url: http://${app.user-service.host}
+  watchlist-service:
+    host: watchlist-service
+    url: http://${app.watchlist-service.host}
+
+---
+spring:
+  config:
+    activate:
+      on-profile: docker
+  rabbitmq:
+    host: rabbitmq
+
+server:
+  port: 8080
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://discovery-service:8761/eureka

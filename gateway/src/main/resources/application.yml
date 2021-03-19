@@ -1,0 +1,36 @@
+spring:
+  application:
+    name: gateway
+  cloud:
+    gateway:
+      routes:
+        - id: front
+          uri: lb://front/users
+          predicates:
+            - Path=/users/**
+        - id: discovery-service
+          uri: http://localhost:8761
+          predicates:
+            - Path=/eureka/**
+
+---
+spring:
+  config:
+    activate:
+      on-profile: docker
+  cloud:
+    gateway:
+      routes:
+        - id: front
+          uri: lb://front/users
+          predicates:
+            - Path=/users/**
+        - id: discovery-service
+          uri: http://discovery-service:8761
+          predicates:
+            - Path=/eureka/**
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://discovery-service:8761/eureka

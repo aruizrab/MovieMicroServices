@@ -1,8 +1,44 @@
-spring:
-  application:
-    name: watch-list
-  jpa:
-    database: h2
-
 server:
   port: 7003
+
+spring:
+  application:
+    name: watchlist-service
+  jpa:
+    database: h2
+  cloud:
+    stream:
+      bindings:
+        receiveWatchlistChannel:
+          destination: watchlistChannel
+
+---
+spring:
+  config:
+    activate:
+      on-profile: docker
+  jpa:
+    database: mysql
+    generate-ddl: true
+    show-sql: true
+    hibernate:
+      ddl-auto: create
+    properties:
+      hibernate:
+        hbm2ddl:
+          import_files: data.sql
+  datasource:
+    url: jdbc:mysql://db:3306/watchlistdb
+    username: user
+    password: pass
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  rabbitmq:
+    host: rabbitmq
+
+server:
+  port: 8080
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://discovery-service:8761/eureka

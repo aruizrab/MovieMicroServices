@@ -1,0 +1,33 @@
+server:
+  port: 8888
+
+spring:
+  application:
+    name: configuration-service
+  security:
+    user:
+      name: user
+      password: pass
+  cloud:
+    config:
+      server:
+        native:
+          search-locations: file://${user.home}/config-repo
+
+---
+spring:
+  security:
+    user:
+      name: ${CONFIG_SERVER_USERNAME}
+      password: ${CONFIG_SERVER_PASSWORD}
+  config:
+    activate:
+      on-profile: docker
+  cloud:
+    config:
+      server:
+        native:
+          search-locations: file:/config-repo
+
+server:
+  port: 8080
