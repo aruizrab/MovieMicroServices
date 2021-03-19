@@ -2,8 +2,6 @@ server:
   port: 7000
 
 spring:
-  application:
-    name: front
   cloud:
     stream:
       bindings:

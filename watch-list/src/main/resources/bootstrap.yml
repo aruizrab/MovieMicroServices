@@ -1,6 +1,6 @@
 spring:
   application:
-    name: discovery-service # Configuration file in config-repo must have same name as application name
+    name: watchlist-service # Configuration file in config-repo must have same name as application name
   cloud:
     config:
       fail-fast: true # If connection to configuration server fails, re-try fast

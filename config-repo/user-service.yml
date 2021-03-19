@@ -2,8 +2,6 @@ server:
   port: 7002
 
 spring:
-  application:
-    name: user-service
   jpa:
     database: h2
   cloud:

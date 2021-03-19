@@ -1,6 +1,8 @@
 package com.github.aruizrab.front.application;
 
+import com.github.aruizrab.front.application.dto.MovieDTO;
 import com.github.aruizrab.front.application.dto.UserCompositeDTO;
+import com.github.aruizrab.front.domain.Movie;
 import com.github.aruizrab.front.domain.User;
 import com.github.aruizrab.front.domain.UserComposite;
 import org.modelmapper.ModelMapper;
@@ -74,5 +76,15 @@ public class FrontController {
 
     public void removeFromUserWatchlist(long userId, long movieId) {
         watchlistService.removeFromUserWatchlist(userId, movieId);
+    }
+
+    public List<MovieDTO> getMovies() {
+        var movies = movieService.getMovies(new ArrayList<>());
+        return movies.stream().map(movie -> modelMapper.map(movie, MovieDTO.class)).collect(Collectors.toList());
+    }
+
+    public List<MovieDTO> getMovies(List<Long> ids) {
+        var movies = movieService.getMovies(ids);
+        return movies.stream().map(movie -> modelMapper.map(movie, MovieDTO.class)).collect(Collectors.toList());
     }
 }

@@ -1,5 +1,5 @@
 server:
-  port: 8762
+  port: 8761
 
 eureka:
   client:
@@ -10,4 +10,4 @@ eureka:
 spring:
   config:
     activate:
-      on-profile: docker
+      on-profile: docker # Docker profile just in case, although there is no docker specific configuration for now.

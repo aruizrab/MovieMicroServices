@@ -1,6 +1,7 @@
 package com.github.aruizrab.front.api;
 
 import com.github.aruizrab.front.application.FrontController;
+import com.github.aruizrab.front.application.dto.MovieDTO;
 import com.github.aruizrab.front.application.dto.UserCompositeDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -41,5 +42,15 @@ public class FrontRestController {
     @DeleteMapping("/users/{userId}/watch-list/{movieId}")
     public void removeFromUserWatchlist(@PathVariable long userId, @PathVariable long movieId) {
         frontController.removeFromUserWatchlist(userId, movieId);
+    }
+
+    @GetMapping("/movies")
+    public List<MovieDTO> getMovies() {
+        return frontController.getMovies();
+    }
+
+    @GetMapping("/movies/{ids}")
+    public List<MovieDTO> getMovies(@PathVariable List<Long> ids) {
+        return frontController.getMovies(ids);
     }
 }

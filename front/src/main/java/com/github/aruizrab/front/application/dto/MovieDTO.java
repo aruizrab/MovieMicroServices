@@ -4,10 +4,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.List;
-
 @NoArgsConstructor
-public class UserCompositeDTO {
+public class MovieDTO {
     @Getter
     @Setter
     private long id;
@@ -16,8 +14,5 @@ public class UserCompositeDTO {
     private String name;
     @Getter
     @Setter
-    private String email;
-    @Getter
-    @Setter
-    private List<MovieDTO> watchlist;
+    private int year;
 }

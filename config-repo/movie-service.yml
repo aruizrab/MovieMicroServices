@@ -2,8 +2,6 @@ server:
   port: 7001
 
 spring:
-  application:
-    name: movie-service
   jpa:
     database: h2
 
