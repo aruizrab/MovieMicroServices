@@ -27,71 +27,60 @@ services:
       timeout: 5s
       retries: 10
 
+  config-server:
+    build: configuration
+
   discovery-service:
     build: discovery
-    environment:
-      - SPRING_PROFILES_ACTIVE=docker
     ports:
       - 8761:8761
+    depends_on:
+      - config-server
 
   gateway:
     build: gateway
-    environment:
-      - SPRING_PROFILES_ACTIVE=docker
     ports:
       - 8080:8080
     depends_on:
-      discovery-service:
-        condition: service_started
+      - config-server
+      - discovery-service
 
   movie-service:
     build: movie
-    environment:
-      - SPRING_PROFILES_ACTIVE=docker
     depends_on:
-      db:
-        condition: service_healthy
-      rabbitmq:
-        condition: service_healthy
-      discovery-service:
-        condition: service_started
+      - db
+      - rabbitmq
+      - discovery-service
+      - config-server
 
   user-service:
     build: user
     environment:
       - SPRING_PROFILES_ACTIVE=docker
     depends_on:
-      db:
-        condition: service_healthy
-      rabbitmq:
-        condition: service_healthy
-      discovery-service:
-        condition: service_started
+      - db
+      - rabbitmq
+      - discovery-service
+      - config-server
 
   watchlist-service:
     build: watch-list
     environment:
       - SPRING_PROFILES_ACTIVE=docker
     depends_on:
-      db:
-        condition: service_healthy
-      rabbitmq:
-        condition: service_healthy
-      discovery-service:
-        condition: service_started
+      - db
+      - rabbitmq
+      - discovery-service
+      - config-server
 
   front:
     build: front
     environment:
       - SPRING_PROFILES_ACTIVE=docker
     depends_on:
-      movie-service:
-        condition: service_started
-      user-service:
-        condition: service_started
-      watchlist-service:
-        condition: service_started
-      rabbitmq:
-        condition: service_healthy
-      discovery-service:
-        condition: service_started
+      - movie-service
+      - user-service
+      - watchlist-service
+      - rabbitmq
+      - discovery-service
+      - config-server

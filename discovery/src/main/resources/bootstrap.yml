@@ -13,4 +13,4 @@ spring:
       on-profile: docker
   cloud:
     config:
-      uri: http://${CONFIG_SERVER_USER}:${CONFIG_SERVER_PASSWORD}@${CONFIG_SERVER_HOST}:8080
+      uri: http://${CONFIG_SERVER_USER}:${CONFIG_SERVER_PASSWORD}@${CONFIG_SERVER_HOST}:${CONFIG_SERVER_PORT}

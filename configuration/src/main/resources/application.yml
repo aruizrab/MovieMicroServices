@@ -3,7 +3,7 @@ server:
 
 spring:
   application:
-    name: configuration-service
+    name: config-server
   security:
     user:
       name: user
